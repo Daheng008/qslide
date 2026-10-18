@@ -71,12 +71,20 @@
     </div>
 
     <div class="note">
-      <b style="color:#ffb340">📥 安装步骤</b>
-      <ol style="margin:10px 0 0 18px; line-height:1.9; color:#ffe3b3;">
-        <li>点击上方「下载安装清单」，把 <code>manifest.prod.xml</code> 存到本机。</li>
-        <li>打开 <b>Windows 版 PowerPoint</b> →「文件 → 选项 → 加载项」。</li>
-        <li>底部「管理」选「自定义加载项」→「转到…」→「添加」→ 选中该文件 → 确定。</li>
-        <li>重启 PowerPoint，功能区将出现 <b>QSlide</b> 选项卡，即可使用。</li>
+      <b style="color:#ffb340">📥 安装步骤（Windows PowerPoint）</b>
+      <p style="margin:8px 0 0; line-height:1.8; color:#ffe3b3;">先下载 <code>manifest.prod.xml</code> 存到本机（如 <code>D:\QSlide\</code>），再任选下面一种方式：</p>
+      <p style="margin:10px 0 2px; line-height:1.8;"><b style="color:#ffd88f">方法 A · 插入选项卡上传（推荐）</b></p>
+      <ol style="margin:0 0 0 18px; line-height:1.9; color:#ffe3b3;">
+        <li>PowerPoint → <b>「插入」→「获取加载项」</b>（旧版叫「我的加载项」）。</li>
+        <li>在窗口中找到 <b>「上传我的加载项」</b>（通常在左下角）。</li>
+        <li>选中 <code>manifest.prod.xml</code> → 打开 → 功能区出现 <b>QSlide</b> 选项卡。</li>
+      </ol>
+      <p style="margin:10px 0 2px; line-height:1.8;"><b style="color:#ffd88f">方法 B · 受信任目录（无需登录 Microsoft 账户）</b></p>
+      <ol style="margin:0 0 0 18px; line-height:1.9; color:#ffe3b3;">
+        <li>把 <code>manifest.prod.xml</code> 放入一个文件夹，如 <code>D:\QSlide\</code>。</li>
+        <li>「文件 → 选项 → 信任中心 → 信任中心设置 → <b>受信任的加载项目录</b>」。</li>
+        <li>「目录 URL」填 <code>D:\QSlide</code> → 添加目录 → 勾选「显示在菜单中」→ 确定。</li>
+        <li><b>完全重启</b> PowerPoint → 「插入 → 获取加载项」→ <b>「共享文件夹」</b>标签 → 双击 QSlide。</li>
       </ol>
       <p style="margin-top:12px; line-height:1.8; color:#ffe3b3;">
       🏢 <b>企业批量</b>：由 Microsoft 365 管理员在后台「集成应用 → 上传自定义应用」选择该清单并指派给同事，全员自动安装。
