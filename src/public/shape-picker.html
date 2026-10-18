@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>插入图形</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; font-family: -apple-system, "PingFang SC", sans-serif; background: #f5f7fa; }
+    .card { box-sizing: border-box; max-width: 460px; margin: 22px auto; background: #fff; border: 1px solid #dde4ec; border-radius: 10px; padding: 18px 20px; box-shadow: 0 4px 14px rgba(15,43,70,.08); }
+    h3 { margin: 0 0 4px; color: #0f2b46; font-size: 17px; }
+    p { margin: 0 0 14px; color: #5a6b7d; font-size: 12.5px; line-height: 1.6; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .cell { border: 1px solid #e1e8ef; border-radius: 8px; padding: 10px 4px 7px; text-align: center; cursor: pointer; background: #fbfdff; transition: .12s; }
+    .cell:hover { border-color: #2e75b6; background: #eef5fb; transform: translateY(-1px); }
+    .cell svg { width: 38px; height: 38px; }
+    .cell .name { display: block; margin-top: 5px; font-size: 11.5px; color: #41576d; }
+    .foot { display: flex; justify-content: flex-end; margin-top: 14px; }
+    button { font-size: 13px; padding: 6px 16px; border-radius: 6px; border: 1px solid #c4cfd9; background: #fff; color: #333; cursor: pointer; }
+    button:hover { background: #f0f3f6; }
+    .b { fill: #ffffff; stroke: #0f2b46; stroke-width: 2; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h3>插入图形</h3>
+    <p>选择一个图形，将插入到当前幻灯片页中心（白底深蓝描边）。</p>
+    <div class="grid" id="grid"></div>
+    <div class="foot"><button id="cancel">取消</button></div>
+  </div>
+  <script>
+    var SHAPES = [
+      { ast: "rectangle",       label: "矩形",   svg: '<rect class="b" x="8" y="14" width="44" height="32" rx="2"/>' },
+      { ast: "roundRectangle",label: "圆角矩形",svg: '<rect class="b" x="8" y="14" width="44" height="32" rx="11"/>' },
+      { ast: "ellipse",         label: "椭圆",   svg: '<ellipse class="b" cx="30" cy="30" rx="22" ry="16"/>' },
+      { ast: "triangle",        label: "三角形", svg: '<polygon class="b" points="30,10 50,48 10,48"/>' },
+      { ast: "diamond",         label: "菱形",   svg: '<polygon class="b" points="30,8 52,30 30,52 8,30"/>' },
+      { ast: "pentagon", label: "五边形", svg: '<polygon class="b" points="30,9 51,23 44,47 16,47 9,23"/>' },
+      { ast: "hexagon",         label: "六边形", svg: '<polygon class="b" points="14,18 30,9 46,18 46,43 30,52 14,43"/>' },
+      { ast: "rightArrow",      label: "箭头",   svg: '<polygon class="b" points="10,24 34,24 34,15 52,30 34,45 34,36 10,36"/>' },
+      { ast: "star5",           label: "五角星", svg: '<polygon class="b" points="30,8 37,24 54,24 40,34 46,50 30,40 14,50 20,34 6,24 23,24"/>' },
+      { ast: "heart",           label: "心形",   svg: '<path class="b" d="M30 46 C8 30 10 14 24 14 C30 14 30 20 30 22 C30 20 30 14 36 14 C50 14 52 30 30 46 Z"/>' },
+      { ast: "cloud",           label: "云形",   svg: '<path class="b" d="M14 40 C8 40 8 30 16 30 C16 22 30 22 30 30 C30 22 44 22 44 30 C52 30 52 40 46 40 Z"/>' },
+      { ast: "__line__",        label: "直线",   svg: '<line x1="10" y1="30" x2="50" y2="30" stroke="#0f2b46" stroke-width="3"/>' },
+    ];
+
+    var grid = document.getElementById("grid");
+    SHAPES.forEach(function (s) {
+      var cell = document.createElement("div");
+      cell.className = "cell";
+      cell.innerHTML = '<svg viewBox="0 0 60 60">' + s.svg + '</svg><span class="name">' + s.label + '</span>';
+      cell.onclick = function () {
+        if (window.Office && Office.context && Office.context.ui) {
+          Office.context.ui.messageParent(JSON.stringify({ ast: s.ast, label: s.label }));
+        } else {
+          document.getElementById("cancel").textContent = "非对话框环境";
+        }
+      };
+      grid.appendChild(cell);
+    });
+
+    document.getElementById("cancel").onclick = function () {
+        if (window.Office && Office.context && Office.context.ui && Office.context.ui.closeContainer) {
+          Office.context.ui.closeContainer();   // Office 对话框的规范关闭方式
+        } else { window.close(); }
+      };
+  </script>
+</body>
+</html>

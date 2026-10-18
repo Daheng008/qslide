@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.workbuddy/
+*.log
+.DS_Store
+# 部署版 manifest 由脚本按域名生成，不入库
+manifest.prod.xml

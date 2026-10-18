@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>插入图片</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; font-family: -apple-system, "PingFang SC", sans-serif; background: #f5f7fa; }
+    .card { box-sizing: border-box; max-width: 420px; margin: 26px auto; background: #fff; border: 1px solid #dde4ec; border-radius: 10px; padding: 20px 22px; box-shadow: 0 4px 14px rgba(15,43,70,.08); }
+    h3 { margin: 0 0 6px; color: #0f2b46; font-size: 17px; }
+    p { margin: 0 0 14px; color: #5a6b7d; font-size: 12.5px; line-height: 1.6; }
+    .drop { border: 1.5px dashed #9db4c8; border-radius: 8px; padding: 18px 12px; text-align: center; color: #41576d; font-size: 13px; cursor: pointer; background: #f8fbfd; }
+    .drop:hover { border-color: #2e75b6; background: #eef5fb; }
+    .drop b { color: #1f4e79; }
+    #f { display: none; }
+    .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+    #status { font-size: 12px; color: #b03a2e; }
+    button { font-size: 13px; padding: 6px 16px; border-radius: 6px; border: 1px solid #c4cfd9; background: #fff; color: #333; cursor: pointer; }
+    button:hover { background: #f0f3f6; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h3>插入图片</h3>
+    <p>选择本机图片，确认后自动插入到当前幻灯片页中心。</p>
+    <div class="drop" id="drop">点击选择图片，或把图片拖到这里<br /><b>支持 PNG、JPG、GIF、WebP（WebP/SVG 自动转 PNG）</b></div>
+    <input type="file" id="f" accept="image/*" />
+    <div class="foot">
+      <span id="status"></span>
+      <button id="cancel">取消</button>
+    </div>
+  </div>
+  <script>
+    var drop = document.getElementById("drop");
+    var input = document.getElementById("f");
+    var status = document.getElementById("status");
+
+    document.getElementById("cancel").onclick = function () {
+        if (window.Office && Office.context && Office.context.ui && Office.context.ui.closeContainer) {
+          Office.context.ui.closeContainer();
+        } else { window.close(); }
+      };
+    drop.onclick = function () { input.click(); };
+
+    // 拖拽支持
+    ["dragover", "dragenter"].forEach(function (ev) {
+      drop.addEventListener(ev, function (e) { e.preventDefault(); drop.style.borderColor = "#2e75b6"; });
+    });
+    drop.addEventListener("dragleave", function () { drop.style.borderColor = ""; });
+    drop.addEventListener("drop", function (e) {
+      e.preventDefault();
+      drop.style.borderColor = "";
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) handle(e.dataTransfer.files[0]);
+    });
+
+    input.onchange = function () { if (input.files && input.files[0]) handle(input.files[0]); };
+
+    function handle(file) {
+      if (!/^image\//.test(file.type) && file.type !== "") { status.textContent = "请选择图片文件"; return; }
+      status.textContent = "读取中…";
+      var reader = new FileReader();
+      reader.onload = function () {
+        var dataUrl = String(reader.result);
+        var img = new Image();
+        img.onload = function () {
+          // 按原始比例换算插入尺寸（pt），最长边不超过页面 70%（第二次裁剪在 ops 内）
+          var MAXW = 420, MAXH = 320;
+          var w = img.naturalWidth || MAXW, h = img.naturalHeight || MAXH;
+          var k = Math.min(1, MAXW / w, MAXH / h);
+          var finish = function (b64) {
+            if (!b64) { status.textContent = "图片读取失败"; return; }
+            window.Office && Office.context && Office.context.ui
+              ? Office.context.ui.messageParent(JSON.stringify({ b64: b64, w: Math.round(w * k), h: Math.round(h * k) }))
+              : (status.textContent = "无法回传（非对话框环境）");
+          };
+          // PNG/JPG/GIF 直接透传原始字节；WebP/SVG/BMP 等 PowerPoint 无法解码的格式，
+          // 用 canvas 重编码为 PNG（WebKit 能解码 WebP，PowerPoint 不能）。
+          if (/^image\/(png|jpe?g|gif)$/.test(file.type)) {
+            finish(dataUrl.split(",")[1] || "");
+          } else {
+            status.textContent = "正在转换为 PNG…";
+            var c = document.createElement("canvas");
+            c.width = w; c.height = h;
+            var g = c.getContext("2d");
+            if (!g) { status.textContent = "无法转换该图片格式"; return; }
+            g.drawImage(img, 0, 0, w, h);
+            var png = "";
+            try { png = c.toDataURL("image/png"); } catch (e) { status.textContent = "转换失败"; return; }
+            finish(png.split(",")[1] || "");
+          }
+        };
+        img.onerror = function () { status.textContent = "无法解析该图片"; };
+        img.src = dataUrl;
+      };
+      reader.onerror = function () { status.textContent = "文件读取失败"; };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>

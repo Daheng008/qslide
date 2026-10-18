@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+           xsi:type="TaskPaneApp">
+  <Id>9C3F1D44-6E27-4A58-B2F0-8D4E7C1A5B66</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>QSlide</ProviderName>
+  <DefaultLocale>zh-CN</DefaultLocale>
+  <DisplayName DefaultValue="QSlide A"/>
+  <Description DefaultValue="咨询级排版操作：贴合对齐、同宽同高、Action Title、色板、哈维球、议程页、价值链——一套代码跑 Win/Mac/Web。"/>
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+  <SupportUrl DefaultValue="https://github.com/Daheng008/QSlide"/>
+  <AppDomains>
+    <AppDomain>https://localhost:3000</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Presentation"/>
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="PowerPointApi" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Presentation">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <FunctionFile resid="Commands.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <CustomTab id="QSlide.Tab">
+              <Label resid="Tab.Label"/>
+
+              <Group id="QSlide.Group1">
+                <Label resid="Group1.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                </Icon>
+                <Control xsi:type="Button" id="QSlide.BtnTaskpane">
+                  <Label resid="BtnTaskpane.Label"/>
+                  <Supertip><Title resid="BtnTaskpane.Label"/><Description resid="BtnTaskpane.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.pane.16x16"/><bt:Image size="32" resid="Icon.pane.32x32"/><bt:Image size="80" resid="Icon.pane.80x80"/></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>QSlidePane</TaskpaneId><SourceLocation resid="Taskpane.Url"/></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.SameWidth">
+                  <Label resid="BtnSameWidth.Label"/>
+                  <Supertip><Title resid="BtnSameWidth.Label"/><Description resid="BtnSameWidth.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.SameWidth.16x16"/><bt:Image size="32" resid="Icon.SameWidth.32x32"/><bt:Image size="80" resid="Icon.SameWidth.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideSameWidth</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.SameHeight">
+                  <Label resid="BtnSameHeight.Label"/>
+                  <Supertip><Title resid="BtnSameHeight.Label"/><Description resid="BtnSameHeight.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.SameHeight.16x16"/><bt:Image size="32" resid="Icon.SameHeight.32x32"/><bt:Image size="80" resid="Icon.SameHeight.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideSameHeight</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.TouchLeft">
+                  <Label resid="BtnTouchLeft.Label"/>
+                  <Supertip><Title resid="BtnTouchLeft.Label"/><Description resid="BtnTouchLeft.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.TouchLeft.16x16"/><bt:Image size="32" resid="Icon.TouchLeft.32x32"/><bt:Image size="80" resid="Icon.TouchLeft.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideTouchLeft</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.TouchUp">
+                  <Label resid="BtnTouchUp.Label"/>
+                  <Supertip><Title resid="BtnTouchUp.Label"/><Description resid="BtnTouchUp.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.TouchUp.16x16"/><bt:Image size="32" resid="Icon.TouchUp.32x32"/><bt:Image size="80" resid="Icon.TouchUp.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideTouchUp</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.RemoveText">
+                  <Label resid="BtnRemoveText.Label"/>
+                  <Supertip><Title resid="BtnRemoveText.Label"/><Description resid="BtnRemoveText.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.RemoveText.16x16"/><bt:Image size="32" resid="Icon.RemoveText.32x32"/><bt:Image size="80" resid="Icon.RemoveText.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideRemoveText</FunctionName></Action>
+                </Control>
+              </Group>
+
+              <Group id="QSlideA.GroupInsert">
+                <Label resid="GroupInsert.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                  <Control xsi:type="Button" id="QSlideA.BtnShapeGallery">
+                  <Label resid="BtnShapeMenu.Label"/>
+                  <Supertip><Title resid="BtnShapeMenu.Label"/><Description resid="BtnShapeMenu.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.ShapeMenu.16x16"/><bt:Image size="32" resid="Icon.ShapeMenu.32x32"/><bt:Image size="80" resid="Icon.ShapeMenu.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideOpenShapePicker</FunctionName></Action>
+                </Control>
+              </Group>
+
+              <Group id="QSlide.Group2">
+                <Label resid="Group2.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                <Control xsi:type="Button" id="QSlide.DistributeH">
+                  <Label resid="BtnDistributeH.Label"/>
+                  <Supertip><Title resid="BtnDistributeH.Label"/><Description resid="BtnDistributeH.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.DistributeH.16x16"/><bt:Image size="32" resid="Icon.DistributeH.32x32"/><bt:Image size="80" resid="Icon.DistributeH.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideDistributeH</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.ActionTitle">
+                  <Label resid="BtnActionTitle.Label"/>
+                  <Supertip><Title resid="BtnActionTitle.Label"/><Description resid="BtnActionTitle.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.ActionTitle.16x16"/><bt:Image size="32" resid="Icon.ActionTitle.32x32"/><bt:Image size="80" resid="Icon.ActionTitle.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideActionTitle</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.Unify">
+                  <Label resid="BtnUnify.Label"/>
+                  <Supertip><Title resid="BtnUnify.Label"/><Description resid="BtnUnify.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.Unify.16x16"/><bt:Image size="32" resid="Icon.Unify.32x32"/><bt:Image size="80" resid="Icon.Unify.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideUnify</FunctionName></Action>
+                </Control>
+              </Group>
+
+              <Group id="QSlide.Group3">
+                <Label resid="Group3.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                <Control xsi:type="Button" id="QSlide.EdgeUp">
+                  <Label resid="BtnEdgeUp.Label"/>
+                  <Supertip><Title resid="BtnEdgeUp.Label"/><Description resid="BtnEdgeUp.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.EdgeUp.16x16"/><bt:Image size="32" resid="Icon.EdgeUp.32x32"/><bt:Image size="80" resid="Icon.EdgeUp.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideEdgeUp</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.EdgeDown">
+                  <Label resid="BtnEdgeDown.Label"/>
+                  <Supertip><Title resid="BtnEdgeDown.Label"/><Description resid="BtnEdgeDown.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.EdgeDown.16x16"/><bt:Image size="32" resid="Icon.EdgeDown.32x32"/><bt:Image size="80" resid="Icon.EdgeDown.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideEdgeDown</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.EdgeLeft">
+                  <Label resid="BtnEdgeLeft.Label"/>
+                  <Supertip><Title resid="BtnEdgeLeft.Label"/><Description resid="BtnEdgeLeft.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.EdgeLeft.16x16"/><bt:Image size="32" resid="Icon.EdgeLeft.32x32"/><bt:Image size="80" resid="Icon.EdgeLeft.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideEdgeLeft</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.EdgeRight">
+                  <Label resid="BtnEdgeRight.Label"/>
+                  <Supertip><Title resid="BtnEdgeRight.Label"/><Description resid="BtnEdgeRight.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.EdgeRight.16x16"/><bt:Image size="32" resid="Icon.EdgeRight.32x32"/><bt:Image size="80" resid="Icon.EdgeRight.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideEdgeRight</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.SubjectTitle">
+                  <Label resid="BtnSubjectTitle.Label"/>
+                  <Supertip><Title resid="BtnSubjectTitle.Label"/><Description resid="BtnSubjectTitle.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.SubjectTitle.16x16"/><bt:Image size="32" resid="Icon.SubjectTitle.32x32"/><bt:Image size="80" resid="Icon.SubjectTitle.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideSubjectTitle</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.Footnote">
+                  <Label resid="BtnFootnote.Label"/>
+                  <Supertip><Title resid="BtnFootnote.Label"/><Description resid="BtnFootnote.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.Footnote.16x16"/><bt:Image size="32" resid="Icon.Footnote.32x32"/><bt:Image size="80" resid="Icon.Footnote.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideFootnote</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.MergeText">
+                  <Label resid="BtnMergeText.Label"/>
+                  <Supertip><Title resid="BtnMergeText.Label"/><Description resid="BtnMergeText.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.MergeText.16x16"/><bt:Image size="32" resid="Icon.MergeText.32x32"/><bt:Image size="80" resid="Icon.MergeText.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideMergeText</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.CollapseSpaces">
+                  <Label resid="BtnCollapseSpaces.Label"/>
+                  <Supertip><Title resid="BtnCollapseSpaces.Label"/><Description resid="BtnCollapseSpaces.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.CollapseSpaces.16x16"/><bt:Image size="32" resid="Icon.CollapseSpaces.32x32"/><bt:Image size="80" resid="Icon.CollapseSpaces.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideCollapseSpaces</FunctionName></Action>
+                </Control>
+              </Group>
+
+              <Group id="QSlide.Group4">
+                <Label resid="Group4.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                <Control xsi:type="Button" id="QSlide.RoundUp">
+                  <Label resid="BtnRoundUp.Label"/>
+                  <Supertip><Title resid="BtnRoundUp.Label"/><Description resid="BtnRoundUp.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.RoundUp.16x16"/><bt:Image size="32" resid="Icon.RoundUp.32x32"/><bt:Image size="80" resid="Icon.RoundUp.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideRoundUp</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.RoundDown">
+                  <Label resid="BtnRoundDown.Label"/>
+                  <Supertip><Title resid="BtnRoundDown.Label"/><Description resid="BtnRoundDown.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.RoundDown.16x16"/><bt:Image size="32" resid="Icon.RoundDown.32x32"/><bt:Image size="80" resid="Icon.RoundDown.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideRoundDown</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.Straighten">
+                  <Label resid="BtnStraighten.Label"/>
+                  <Supertip><Title resid="BtnStraighten.Label"/><Description resid="BtnStraighten.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.Straighten.16x16"/><bt:Image size="32" resid="Icon.Straighten.32x32"/><bt:Image size="80" resid="Icon.Straighten.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideStraighten</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.RemoveOutline">
+                  <Label resid="BtnRemoveOutline.Label"/>
+                  <Supertip><Title resid="BtnRemoveOutline.Label"/><Description resid="BtnRemoveOutline.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.RemoveOutline.16x16"/><bt:Image size="32" resid="Icon.RemoveOutline.32x32"/><bt:Image size="80" resid="Icon.RemoveOutline.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideRemoveOutline</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.UnifyFont">
+                  <Label resid="BtnUnifyFont.Label"/>
+                  <Supertip><Title resid="BtnUnifyFont.Label"/><Description resid="BtnUnifyFont.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.UnifyFont.16x16"/><bt:Image size="32" resid="Icon.UnifyFont.32x32"/><bt:Image size="80" resid="Icon.UnifyFont.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideUnifyFont</FunctionName></Action>
+                </Control>
+              </Group>
+
+              <Group id="QSlide.Group5">
+                <Label resid="Group5.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                <Control xsi:type="Button" id="QSlide.InsertTextbox">
+                  <Label resid="BtnInsertTextbox.Label"/>
+                  <Supertip><Title resid="BtnInsertTextbox.Label"/><Description resid="BtnInsertTextbox.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.InsertTextbox.16x16"/><bt:Image size="32" resid="Icon.InsertTextbox.32x32"/><bt:Image size="80" resid="Icon.InsertTextbox.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideInsertTextbox</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.CopyToAll">
+                  <Label resid="BtnCopyToAll.Label"/>
+                  <Supertip><Title resid="BtnCopyToAll.Label"/><Description resid="BtnCopyToAll.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.CopyToAll.16x16"/><bt:Image size="32" resid="Icon.CopyToAll.32x32"/><bt:Image size="80" resid="Icon.CopyToAll.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideCopyToAll</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.RemoveNotes">
+                  <Label resid="BtnRemoveNotes.Label"/>
+                  <Supertip><Title resid="BtnRemoveNotes.Label"/><Description resid="BtnRemoveNotes.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.RemoveNotes.16x16"/><bt:Image size="32" resid="Icon.RemoveNotes.32x32"/><bt:Image size="80" resid="Icon.RemoveNotes.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideRemoveNotes</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.RemoveAnimations">
+                  <Label resid="BtnRemoveAnimations.Label"/>
+                  <Supertip><Title resid="BtnRemoveAnimations.Label"/><Description resid="BtnRemoveAnimations.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.RemoveAnimations.16x16"/><bt:Image size="32" resid="Icon.RemoveAnimations.32x32"/><bt:Image size="80" resid="Icon.RemoveAnimations.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideRemoveAnimations</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.DuplicateSlide">
+                  <Label resid="BtnDuplicateSlide.Label"/>
+                  <Supertip><Title resid="BtnDuplicateSlide.Label"/><Description resid="BtnDuplicateSlide.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.DuplicateSlide.16x16"/><bt:Image size="32" resid="Icon.DuplicateSlide.32x32"/><bt:Image size="80" resid="Icon.DuplicateSlide.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideDuplicateSlide</FunctionName></Action>
+                </Control>
+              </Group>
+
+              <Group id="QSlide.Group6">
+                <Label resid="Group6.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                <Control xsi:type="Button" id="QSlide.Harvey">
+                  <Label resid="BtnHarvey.Label"/>
+                  <Supertip><Title resid="BtnHarvey.Label"/><Description resid="BtnHarvey.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.Harvey.16x16"/><bt:Image size="32" resid="Icon.Harvey.32x32"/><bt:Image size="80" resid="Icon.Harvey.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideHarvey</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.Agenda">
+                  <Label resid="BtnAgenda.Label"/>
+                  <Supertip><Title resid="BtnAgenda.Label"/><Description resid="BtnAgenda.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.Agenda.16x16"/><bt:Image size="32" resid="Icon.Agenda.32x32"/><bt:Image size="80" resid="Icon.Agenda.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideAgenda</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.ValueChain">
+                  <Label resid="BtnValueChain.Label"/>
+                  <Supertip><Title resid="BtnValueChain.Label"/><Description resid="BtnValueChain.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.ValueChain.16x16"/><bt:Image size="32" resid="Icon.ValueChain.32x32"/><bt:Image size="80" resid="Icon.ValueChain.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideValueChain</FunctionName></Action>
+                </Control>
+              </Group>
+
+              <Group id="QSlide.Group7">
+                <Label resid="Group7.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                <Control xsi:type="Button" id="QSlide.FontUp">
+                  <Label resid="BtnFontUp.Label"/>
+                  <Supertip><Title resid="BtnFontUp.Label"/><Description resid="BtnFontUp.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.FontUp.16x16"/><bt:Image size="32" resid="Icon.FontUp.32x32"/><bt:Image size="80" resid="Icon.FontUp.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideFontUp</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.FontDown">
+                  <Label resid="BtnFontDown.Label"/>
+                  <Supertip><Title resid="BtnFontDown.Label"/><Description resid="BtnFontDown.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.FontDown.16x16"/><bt:Image size="32" resid="Icon.FontDown.32x32"/><bt:Image size="80" resid="Icon.FontDown.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideFontDown</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.LineUp">
+                  <Label resid="BtnLineUp.Label"/>
+                  <Supertip><Title resid="BtnLineUp.Label"/><Description resid="BtnLineUp.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.LineUp.16x16"/><bt:Image size="32" resid="Icon.LineUp.32x32"/><bt:Image size="80" resid="Icon.LineUp.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideLineUp</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.LineDown">
+                  <Label resid="BtnLineDown.Label"/>
+                  <Supertip><Title resid="BtnLineDown.Label"/><Description resid="BtnLineDown.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.LineDown.16x16"/><bt:Image size="32" resid="Icon.LineDown.32x32"/><bt:Image size="80" resid="Icon.LineDown.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideLineDown</FunctionName></Action>
+                </Control>
+              </Group>
+
+              <Group id="QSlide.Group8">
+                <Label resid="Group8.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                <Control xsi:type="Button" id="QSlide.RemoveEffects">
+                  <Label resid="BtnRemoveEffects.Label"/>
+                  <Supertip><Title resid="BtnRemoveEffects.Label"/><Description resid="BtnRemoveEffects.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.RemoveEffects.16x16"/><bt:Image size="32" resid="Icon.RemoveEffects.32x32"/><bt:Image size="80" resid="Icon.RemoveEffects.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideRemoveEffects</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.PickFormat">
+                  <Label resid="BtnPickFormat.Label"/>
+                  <Supertip><Title resid="BtnPickFormat.Label"/><Description resid="BtnPickFormat.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.PickFormat.16x16"/><bt:Image size="32" resid="Icon.PickFormat.32x32"/><bt:Image size="80" resid="Icon.PickFormat.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslidePickFormat</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.ApplyFormat">
+                  <Label resid="BtnApplyFormat.Label"/>
+                  <Supertip><Title resid="BtnApplyFormat.Label"/><Description resid="BtnApplyFormat.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.ApplyFormat.16x16"/><bt:Image size="32" resid="Icon.ApplyFormat.32x32"/><bt:Image size="80" resid="Icon.ApplyFormat.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideApplyFormat</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.ZeroMargins">
+                  <Label resid="BtnZeroMargins.Label"/>
+                  <Supertip><Title resid="BtnZeroMargins.Label"/><Description resid="BtnZeroMargins.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.ZeroMargins.16x16"/><bt:Image size="32" resid="Icon.ZeroMargins.32x32"/><bt:Image size="80" resid="Icon.ZeroMargins.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideZeroMargins</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.ZeroMarginsAll">
+                  <Label resid="BtnZeroMarginsAll.Label"/>
+                  <Supertip><Title resid="BtnZeroMarginsAll.Label"/><Description resid="BtnZeroMarginsAll.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.ZeroMarginsAll.16x16"/><bt:Image size="32" resid="Icon.ZeroMarginsAll.32x32"/><bt:Image size="80" resid="Icon.ZeroMarginsAll.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideZeroMarginsAll</FunctionName></Action>
+                </Control>
+              </Group>
+
+              <Group id="QSlide.Group9">
+                <Label resid="Group9.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                <Control xsi:type="Button" id="QSlide.Table">
+                  <Label resid="BtnTable.Label"/>
+                  <Supertip><Title resid="BtnTable.Label"/><Description resid="BtnTable.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.Table.16x16"/><bt:Image size="32" resid="Icon.Table.32x32"/><bt:Image size="80" resid="Icon.Table.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideTable</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.Grayscale">
+                  <Label resid="BtnGrayscale.Label"/>
+                  <Supertip><Title resid="BtnGrayscale.Label"/><Description resid="BtnGrayscale.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.Grayscale.16x16"/><bt:Image size="32" resid="Icon.Grayscale.32x32"/><bt:Image size="80" resid="Icon.Grayscale.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideGrayscale</FunctionName></Action>
+                </Control>
+              </Group>
+              <Group id="QSlide.Group10">
+                <Label resid="Group10.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                <Control xsi:type="Button" id="QSlide.CenterH">
+                  <Label resid="BtnCenterH.Label"/>
+                  <Supertip><Title resid="BtnCenterH.Label"/><Description resid="BtnCenterH.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.CenterH.16x16"/><bt:Image size="32" resid="Icon.CenterH.32x32"/><bt:Image size="80" resid="Icon.CenterH.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideCenterH</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.CenterV">
+                  <Label resid="BtnCenterV.Label"/>
+                  <Supertip><Title resid="BtnCenterV.Label"/><Description resid="BtnCenterV.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.CenterV.16x16"/><bt:Image size="32" resid="Icon.CenterV.32x32"/><bt:Image size="80" resid="Icon.CenterV.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideCenterV</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.CenterBoth">
+                  <Label resid="BtnCenterBoth.Label"/>
+                  <Supertip><Title resid="BtnCenterBoth.Label"/><Description resid="BtnCenterBoth.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.CenterBoth.16x16"/><bt:Image size="32" resid="Icon.CenterBoth.32x32"/><bt:Image size="80" resid="Icon.CenterBoth.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideCenterBoth</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.RotationZero">
+                  <Label resid="BtnRotationZero.Label"/>
+                  <Supertip><Title resid="BtnRotationZero.Label"/><Description resid="BtnRotationZero.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.RotationZero.16x16"/><bt:Image size="32" resid="Icon.RotationZero.32x32"/><bt:Image size="80" resid="Icon.RotationZero.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideRotationZero</FunctionName></Action>
+                </Control>
+              </Group>
+              <Group id="QSlide.Group11">
+                <Label resid="Group11.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.16x16"/><bt:Image size="32" resid="Icon.32x32"/><bt:Image size="80" resid="Icon.80x80"/></Icon>
+                <Control xsi:type="Button" id="QSlide.ZFront">
+                  <Label resid="BtnZFront.Label"/>
+                  <Supertip><Title resid="BtnZFront.Label"/><Description resid="BtnZFront.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.ZFront.16x16"/><bt:Image size="32" resid="Icon.ZFront.32x32"/><bt:Image size="80" resid="Icon.ZFront.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideZFront</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.ZBack">
+                  <Label resid="BtnZBack.Label"/>
+                  <Supertip><Title resid="BtnZBack.Label"/><Description resid="BtnZBack.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.ZBack.16x16"/><bt:Image size="32" resid="Icon.ZBack.32x32"/><bt:Image size="80" resid="Icon.ZBack.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideZBack</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.ZForward">
+                  <Label resid="BtnZForward.Label"/>
+                  <Supertip><Title resid="BtnZForward.Label"/><Description resid="BtnZForward.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.ZForward.16x16"/><bt:Image size="32" resid="Icon.ZForward.32x32"/><bt:Image size="80" resid="Icon.ZForward.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideZForward</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="QSlide.ZBackward">
+                  <Label resid="BtnZBackward.Label"/>
+                  <Supertip><Title resid="BtnZBackward.Label"/><Description resid="BtnZBackward.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.ZBackward.16x16"/><bt:Image size="32" resid="Icon.ZBackward.32x32"/><bt:Image size="80" resid="Icon.ZBackward.80x80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>qslideZBackward</FunctionName></Action>
+                </Control>
+              </Group>
+            </CustomTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+        <bt:Image id="Icon.pane.16x16" DefaultValue="https://localhost:3000/assets/icons/pane-16.png"/>
+        <bt:Image id="Icon.pane.32x32" DefaultValue="https://localhost:3000/assets/icons/pane-32.png"/>
+        <bt:Image id="Icon.pane.80x80" DefaultValue="https://localhost:3000/assets/icons/pane-80.png"/>
+        <bt:Image id="Icon.SameWidth.16x16" DefaultValue="https://localhost:3000/assets/icons/SameWidth-16.png"/>
+        <bt:Image id="Icon.SameWidth.32x32" DefaultValue="https://localhost:3000/assets/icons/SameWidth-32.png"/>
+        <bt:Image id="Icon.SameWidth.80x80" DefaultValue="https://localhost:3000/assets/icons/SameWidth-80.png"/>
+        <bt:Image id="Icon.SameHeight.16x16" DefaultValue="https://localhost:3000/assets/icons/SameHeight-16.png"/>
+        <bt:Image id="Icon.SameHeight.32x32" DefaultValue="https://localhost:3000/assets/icons/SameHeight-32.png"/>
+        <bt:Image id="Icon.SameHeight.80x80" DefaultValue="https://localhost:3000/assets/icons/SameHeight-80.png"/>
+        <bt:Image id="Icon.TouchLeft.16x16" DefaultValue="https://localhost:3000/assets/icons/TouchLeft-16.png"/>
+        <bt:Image id="Icon.TouchLeft.32x32" DefaultValue="https://localhost:3000/assets/icons/TouchLeft-32.png"/>
+        <bt:Image id="Icon.TouchLeft.80x80" DefaultValue="https://localhost:3000/assets/icons/TouchLeft-80.png"/>
+        <bt:Image id="Icon.TouchUp.16x16" DefaultValue="https://localhost:3000/assets/icons/TouchUp-16.png"/>
+        <bt:Image id="Icon.TouchUp.32x32" DefaultValue="https://localhost:3000/assets/icons/TouchUp-32.png"/>
+        <bt:Image id="Icon.TouchUp.80x80" DefaultValue="https://localhost:3000/assets/icons/TouchUp-80.png"/>
+        <bt:Image id="Icon.RemoveText.16x16" DefaultValue="https://localhost:3000/assets/icons/RemoveText-16.png"/>
+        <bt:Image id="Icon.RemoveText.32x32" DefaultValue="https://localhost:3000/assets/icons/RemoveText-32.png"/>
+        <bt:Image id="Icon.RemoveText.80x80" DefaultValue="https://localhost:3000/assets/icons/RemoveText-80.png"/>
+        <bt:Image id="Icon.DistributeH.16x16" DefaultValue="https://localhost:3000/assets/icons/DistributeH-16.png"/>
+        <bt:Image id="Icon.DistributeH.32x32" DefaultValue="https://localhost:3000/assets/icons/DistributeH-32.png"/>
+        <bt:Image id="Icon.DistributeH.80x80" DefaultValue="https://localhost:3000/assets/icons/DistributeH-80.png"/>
+        <bt:Image id="Icon.ActionTitle.16x16" DefaultValue="https://localhost:3000/assets/icons/ActionTitle-16.png"/>
+        <bt:Image id="Icon.ActionTitle.32x32" DefaultValue="https://localhost:3000/assets/icons/ActionTitle-32.png"/>
+        <bt:Image id="Icon.ActionTitle.80x80" DefaultValue="https://localhost:3000/assets/icons/ActionTitle-80.png"/>
+        <bt:Image id="Icon.Unify.16x16" DefaultValue="https://localhost:3000/assets/icons/Unify-16.png"/>
+        <bt:Image id="Icon.Unify.32x32" DefaultValue="https://localhost:3000/assets/icons/Unify-32.png"/>
+        <bt:Image id="Icon.Unify.80x80" DefaultValue="https://localhost:3000/assets/icons/Unify-80.png"/>
+        <bt:Image id="Icon.EdgeUp.16x16" DefaultValue="https://localhost:3000/assets/icons/EdgeUp-16.png"/>
+        <bt:Image id="Icon.EdgeUp.32x32" DefaultValue="https://localhost:3000/assets/icons/EdgeUp-32.png"/>
+        <bt:Image id="Icon.EdgeUp.80x80" DefaultValue="https://localhost:3000/assets/icons/EdgeUp-80.png"/>
+        <bt:Image id="Icon.EdgeDown.16x16" DefaultValue="https://localhost:3000/assets/icons/EdgeDown-16.png"/>
+        <bt:Image id="Icon.EdgeDown.32x32" DefaultValue="https://localhost:3000/assets/icons/EdgeDown-32.png"/>
+        <bt:Image id="Icon.EdgeDown.80x80" DefaultValue="https://localhost:3000/assets/icons/EdgeDown-80.png"/>
+        <bt:Image id="Icon.EdgeLeft.16x16" DefaultValue="https://localhost:3000/assets/icons/EdgeLeft-16.png"/>
+        <bt:Image id="Icon.EdgeLeft.32x32" DefaultValue="https://localhost:3000/assets/icons/EdgeLeft-32.png"/>
+        <bt:Image id="Icon.EdgeLeft.80x80" DefaultValue="https://localhost:3000/assets/icons/EdgeLeft-80.png"/>
+        <bt:Image id="Icon.EdgeRight.16x16" DefaultValue="https://localhost:3000/assets/icons/EdgeRight-16.png"/>
+        <bt:Image id="Icon.EdgeRight.32x32" DefaultValue="https://localhost:3000/assets/icons/EdgeRight-32.png"/>
+        <bt:Image id="Icon.EdgeRight.80x80" DefaultValue="https://localhost:3000/assets/icons/EdgeRight-80.png"/>
+        <bt:Image id="Icon.SubjectTitle.16x16" DefaultValue="https://localhost:3000/assets/icons/SubjectTitle-16.png"/>
+        <bt:Image id="Icon.SubjectTitle.32x32" DefaultValue="https://localhost:3000/assets/icons/SubjectTitle-32.png"/>
+        <bt:Image id="Icon.SubjectTitle.80x80" DefaultValue="https://localhost:3000/assets/icons/SubjectTitle-80.png"/>
+        <bt:Image id="Icon.Footnote.16x16" DefaultValue="https://localhost:3000/assets/icons/Footnote-16.png"/>
+        <bt:Image id="Icon.Footnote.32x32" DefaultValue="https://localhost:3000/assets/icons/Footnote-32.png"/>
+        <bt:Image id="Icon.Footnote.80x80" DefaultValue="https://localhost:3000/assets/icons/Footnote-80.png"/>
+        <bt:Image id="Icon.MergeText.16x16" DefaultValue="https://localhost:3000/assets/icons/MergeText-16.png"/>
+        <bt:Image id="Icon.MergeText.32x32" DefaultValue="https://localhost:3000/assets/icons/MergeText-32.png"/>
+        <bt:Image id="Icon.MergeText.80x80" DefaultValue="https://localhost:3000/assets/icons/MergeText-80.png"/>
+        <bt:Image id="Icon.CollapseSpaces.16x16" DefaultValue="https://localhost:3000/assets/icons/CollapseSpaces-16.png"/>
+        <bt:Image id="Icon.CollapseSpaces.32x32" DefaultValue="https://localhost:3000/assets/icons/CollapseSpaces-32.png"/>
+        <bt:Image id="Icon.CollapseSpaces.80x80" DefaultValue="https://localhost:3000/assets/icons/CollapseSpaces-80.png"/>
+        <bt:Image id="Icon.RoundUp.16x16" DefaultValue="https://localhost:3000/assets/icons/RoundUp-16.png"/>
+        <bt:Image id="Icon.RoundUp.32x32" DefaultValue="https://localhost:3000/assets/icons/RoundUp-32.png"/>
+        <bt:Image id="Icon.RoundUp.80x80" DefaultValue="https://localhost:3000/assets/icons/RoundUp-80.png"/>
+        <bt:Image id="Icon.RoundDown.16x16" DefaultValue="https://localhost:3000/assets/icons/RoundDown-16.png"/>
+        <bt:Image id="Icon.RoundDown.32x32" DefaultValue="https://localhost:3000/assets/icons/RoundDown-32.png"/>
+        <bt:Image id="Icon.RoundDown.80x80" DefaultValue="https://localhost:3000/assets/icons/RoundDown-80.png"/>
+        <bt:Image id="Icon.Straighten.16x16" DefaultValue="https://localhost:3000/assets/icons/Straighten-16.png"/>
+        <bt:Image id="Icon.Straighten.32x32" DefaultValue="https://localhost:3000/assets/icons/Straighten-32.png"/>
+        <bt:Image id="Icon.Straighten.80x80" DefaultValue="https://localhost:3000/assets/icons/Straighten-80.png"/>
+        <bt:Image id="Icon.RemoveOutline.16x16" DefaultValue="https://localhost:3000/assets/icons/RemoveOutline-16.png"/>
+        <bt:Image id="Icon.RemoveOutline.32x32" DefaultValue="https://localhost:3000/assets/icons/RemoveOutline-32.png"/>
+        <bt:Image id="Icon.RemoveOutline.80x80" DefaultValue="https://localhost:3000/assets/icons/RemoveOutline-80.png"/>
+        <bt:Image id="Icon.UnifyFont.16x16" DefaultValue="https://localhost:3000/assets/icons/UnifyFont-16.png"/>
+        <bt:Image id="Icon.UnifyFont.32x32" DefaultValue="https://localhost:3000/assets/icons/UnifyFont-32.png"/>
+        <bt:Image id="Icon.UnifyFont.80x80" DefaultValue="https://localhost:3000/assets/icons/UnifyFont-80.png"/>
+        <bt:Image id="Icon.InsertTextbox.16x16" DefaultValue="https://localhost:3000/assets/icons/InsertTextbox-16.png"/>
+        <bt:Image id="Icon.InsertTextbox.32x32" DefaultValue="https://localhost:3000/assets/icons/InsertTextbox-32.png"/>
+        <bt:Image id="Icon.InsertTextbox.80x80" DefaultValue="https://localhost:3000/assets/icons/InsertTextbox-80.png"/>
+        <bt:Image id="Icon.CopyToAll.16x16" DefaultValue="https://localhost:3000/assets/icons/CopyToAll-16.png"/>
+        <bt:Image id="Icon.CopyToAll.32x32" DefaultValue="https://localhost:3000/assets/icons/CopyToAll-32.png"/>
+        <bt:Image id="Icon.CopyToAll.80x80" DefaultValue="https://localhost:3000/assets/icons/CopyToAll-80.png"/>
+        <bt:Image id="Icon.RemoveNotes.16x16" DefaultValue="https://localhost:3000/assets/icons/RemoveNotes-16.png"/>
+        <bt:Image id="Icon.RemoveNotes.32x32" DefaultValue="https://localhost:3000/assets/icons/RemoveNotes-32.png"/>
+        <bt:Image id="Icon.RemoveNotes.80x80" DefaultValue="https://localhost:3000/assets/icons/RemoveNotes-80.png"/>
+        <bt:Image id="Icon.RemoveAnimations.16x16" DefaultValue="https://localhost:3000/assets/icons/RemoveAnimations-16.png"/>
+        <bt:Image id="Icon.RemoveAnimations.32x32" DefaultValue="https://localhost:3000/assets/icons/RemoveAnimations-32.png"/>
+        <bt:Image id="Icon.RemoveAnimations.80x80" DefaultValue="https://localhost:3000/assets/icons/RemoveAnimations-80.png"/>
+        <bt:Image id="Icon.DuplicateSlide.16x16" DefaultValue="https://localhost:3000/assets/icons/DuplicateSlide-16.png"/>
+        <bt:Image id="Icon.DuplicateSlide.32x32" DefaultValue="https://localhost:3000/assets/icons/DuplicateSlide-32.png"/>
+        <bt:Image id="Icon.DuplicateSlide.80x80" DefaultValue="https://localhost:3000/assets/icons/DuplicateSlide-80.png"/>
+        <bt:Image id="Icon.Harvey.16x16" DefaultValue="https://localhost:3000/assets/icons/Harvey-16.png"/>
+        <bt:Image id="Icon.Harvey.32x32" DefaultValue="https://localhost:3000/assets/icons/Harvey-32.png"/>
+        <bt:Image id="Icon.Harvey.80x80" DefaultValue="https://localhost:3000/assets/icons/Harvey-80.png"/>
+        <bt:Image id="Icon.Agenda.16x16" DefaultValue="https://localhost:3000/assets/icons/Agenda-16.png"/>
+        <bt:Image id="Icon.Agenda.32x32" DefaultValue="https://localhost:3000/assets/icons/Agenda-32.png"/>
+        <bt:Image id="Icon.Agenda.80x80" DefaultValue="https://localhost:3000/assets/icons/Agenda-80.png"/>
+        <bt:Image id="Icon.ValueChain.16x16" DefaultValue="https://localhost:3000/assets/icons/ValueChain-16.png"/>
+        <bt:Image id="Icon.ValueChain.32x32" DefaultValue="https://localhost:3000/assets/icons/ValueChain-32.png"/>
+        <bt:Image id="Icon.ValueChain.80x80" DefaultValue="https://localhost:3000/assets/icons/ValueChain-80.png"/>
+        <bt:Image id="Icon.FontUp.16x16" DefaultValue="https://localhost:3000/assets/icons/FontUp-16.png"/>
+        <bt:Image id="Icon.FontUp.32x32" DefaultValue="https://localhost:3000/assets/icons/FontUp-32.png"/>
+        <bt:Image id="Icon.FontUp.80x80" DefaultValue="https://localhost:3000/assets/icons/FontUp-80.png"/>
+        <bt:Image id="Icon.FontDown.16x16" DefaultValue="https://localhost:3000/assets/icons/FontDown-16.png"/>
+        <bt:Image id="Icon.FontDown.32x32" DefaultValue="https://localhost:3000/assets/icons/FontDown-32.png"/>
+        <bt:Image id="Icon.FontDown.80x80" DefaultValue="https://localhost:3000/assets/icons/FontDown-80.png"/>
+        <bt:Image id="Icon.LineUp.16x16" DefaultValue="https://localhost:3000/assets/icons/LineUp-16.png"/>
+        <bt:Image id="Icon.LineUp.32x32" DefaultValue="https://localhost:3000/assets/icons/LineUp-32.png"/>
+        <bt:Image id="Icon.LineUp.80x80" DefaultValue="https://localhost:3000/assets/icons/LineUp-80.png"/>
+        <bt:Image id="Icon.LineDown.16x16" DefaultValue="https://localhost:3000/assets/icons/LineDown-16.png"/>
+        <bt:Image id="Icon.LineDown.32x32" DefaultValue="https://localhost:3000/assets/icons/LineDown-32.png"/>
+        <bt:Image id="Icon.LineDown.80x80" DefaultValue="https://localhost:3000/assets/icons/LineDown-80.png"/>
+        <bt:Image id="Icon.RemoveEffects.16x16" DefaultValue="https://localhost:3000/assets/icons/RemoveEffects-16.png"/>
+        <bt:Image id="Icon.RemoveEffects.32x32" DefaultValue="https://localhost:3000/assets/icons/RemoveEffects-32.png"/>
+        <bt:Image id="Icon.RemoveEffects.80x80" DefaultValue="https://localhost:3000/assets/icons/RemoveEffects-80.png"/>
+        <bt:Image id="Icon.PickFormat.16x16" DefaultValue="https://localhost:3000/assets/icons/PickFormat-16.png"/>
+        <bt:Image id="Icon.PickFormat.32x32" DefaultValue="https://localhost:3000/assets/icons/PickFormat-32.png"/>
+        <bt:Image id="Icon.PickFormat.80x80" DefaultValue="https://localhost:3000/assets/icons/PickFormat-80.png"/>
+        <bt:Image id="Icon.ApplyFormat.16x16" DefaultValue="https://localhost:3000/assets/icons/ApplyFormat-16.png"/>
+        <bt:Image id="Icon.ApplyFormat.32x32" DefaultValue="https://localhost:3000/assets/icons/ApplyFormat-32.png"/>
+        <bt:Image id="Icon.ApplyFormat.80x80" DefaultValue="https://localhost:3000/assets/icons/ApplyFormat-80.png"/>
+        <bt:Image id="Icon.ZeroMargins.16x16" DefaultValue="https://localhost:3000/assets/icons/ZeroMargins-16.png"/>
+        <bt:Image id="Icon.ZeroMargins.32x32" DefaultValue="https://localhost:3000/assets/icons/ZeroMargins-32.png"/>
+        <bt:Image id="Icon.ZeroMargins.80x80" DefaultValue="https://localhost:3000/assets/icons/ZeroMargins-80.png"/>
+        <bt:Image id="Icon.ZeroMarginsAll.16x16" DefaultValue="https://localhost:3000/assets/icons/ZeroMarginsAll-16.png"/>
+        <bt:Image id="Icon.ZeroMarginsAll.32x32" DefaultValue="https://localhost:3000/assets/icons/ZeroMarginsAll-32.png"/>
+        <bt:Image id="Icon.ZeroMarginsAll.80x80" DefaultValue="https://localhost:3000/assets/icons/ZeroMarginsAll-80.png"/>
+        <bt:Image id="Icon.Table.16x16" DefaultValue="https://localhost:3000/assets/icons/Table-16.png"/>
+        <bt:Image id="Icon.Table.32x32" DefaultValue="https://localhost:3000/assets/icons/Table-32.png"/>
+        <bt:Image id="Icon.Table.80x80" DefaultValue="https://localhost:3000/assets/icons/Table-80.png"/>
+        <bt:Image id="Icon.Grayscale.16x16" DefaultValue="https://localhost:3000/assets/icons/Grayscale-16.png"/>
+        <bt:Image id="Icon.Grayscale.32x32" DefaultValue="https://localhost:3000/assets/icons/Grayscale-32.png"/>
+        <bt:Image id="Icon.Grayscale.80x80" DefaultValue="https://localhost:3000/assets/icons/Grayscale-80.png"/>
+        <bt:Image id="Icon.CenterH.16x16" DefaultValue="https://localhost:3000/assets/icons/CenterH-16.png"/>
+        <bt:Image id="Icon.CenterH.32x32" DefaultValue="https://localhost:3000/assets/icons/CenterH-32.png"/>
+        <bt:Image id="Icon.CenterH.80x80" DefaultValue="https://localhost:3000/assets/icons/CenterH-80.png"/>
+        <bt:Image id="Icon.CenterV.16x16" DefaultValue="https://localhost:3000/assets/icons/CenterV-16.png"/>
+        <bt:Image id="Icon.CenterV.32x32" DefaultValue="https://localhost:3000/assets/icons/CenterV-32.png"/>
+        <bt:Image id="Icon.CenterV.80x80" DefaultValue="https://localhost:3000/assets/icons/CenterV-80.png"/>
+        <bt:Image id="Icon.CenterBoth.16x16" DefaultValue="https://localhost:3000/assets/icons/CenterBoth-16.png"/>
+        <bt:Image id="Icon.CenterBoth.32x32" DefaultValue="https://localhost:3000/assets/icons/CenterBoth-32.png"/>
+        <bt:Image id="Icon.CenterBoth.80x80" DefaultValue="https://localhost:3000/assets/icons/CenterBoth-80.png"/>
+        <bt:Image id="Icon.RotationZero.16x16" DefaultValue="https://localhost:3000/assets/icons/RotationZero-16.png"/>
+        <bt:Image id="Icon.RotationZero.32x32" DefaultValue="https://localhost:3000/assets/icons/RotationZero-32.png"/>
+        <bt:Image id="Icon.RotationZero.80x80" DefaultValue="https://localhost:3000/assets/icons/RotationZero-80.png"/>
+        <bt:Image id="Icon.ZFront.16x16" DefaultValue="https://localhost:3000/assets/icons/ZFront-16.png"/>
+        <bt:Image id="Icon.ZFront.32x32" DefaultValue="https://localhost:3000/assets/icons/ZFront-32.png"/>
+        <bt:Image id="Icon.ZFront.80x80" DefaultValue="https://localhost:3000/assets/icons/ZFront-80.png"/>
+        <bt:Image id="Icon.ZBack.16x16" DefaultValue="https://localhost:3000/assets/icons/ZBack-16.png"/>
+        <bt:Image id="Icon.ZBack.32x32" DefaultValue="https://localhost:3000/assets/icons/ZBack-32.png"/>
+        <bt:Image id="Icon.ZBack.80x80" DefaultValue="https://localhost:3000/assets/icons/ZBack-80.png"/>
+        <bt:Image id="Icon.ZForward.16x16" DefaultValue="https://localhost:3000/assets/icons/ZForward-16.png"/>
+        <bt:Image id="Icon.ZForward.32x32" DefaultValue="https://localhost:3000/assets/icons/ZForward-32.png"/>
+        <bt:Image id="Icon.ZForward.80x80" DefaultValue="https://localhost:3000/assets/icons/ZForward-80.png"/>
+        <bt:Image id="Icon.ZBackward.16x16" DefaultValue="https://localhost:3000/assets/icons/ZBackward-16.png"/>
+        <bt:Image id="Icon.ZBackward.32x32" DefaultValue="https://localhost:3000/assets/icons/ZBackward-32.png"/>
+        <bt:Image id="Icon.ZBackward.80x80" DefaultValue="https://localhost:3000/assets/icons/ZBackward-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://github.com/Daheng008/QSlide"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="QSlide 已加载"/>
+        <bt:String id="Tab.Label" DefaultValue="QA·形状"/>
+        <bt:String id="Group1.Label" DefaultValue="排版"/>
+        <bt:String id="Group2.Label" DefaultValue="进阶"/>
+        <bt:String id="GroupInsert.Label" DefaultValue="插入"/>
+        <bt:String id="BtnShapeMenu.Label" DefaultValue="形状"/>
+        <bt:String id="BtnShapeMenu.Tip" DefaultValue="在当前页中心插入常见形状（白底深蓝描边，咨询风默认样式）。"/>
+        <bt:String id="BtnShapeRect.Label" DefaultValue="矩形"/>
+        <bt:String id="BtnShapeRect.Tip" DefaultValue="在当前页中心插入矩形。"/>
+        <bt:String id="BtnShapeRoundRect.Label" DefaultValue="圆角矩形"/>
+        <bt:String id="BtnShapeRoundRect.Tip" DefaultValue="在当前页中心插入圆角矩形。"/>
+        <bt:String id="BtnShapeEllipse.Label" DefaultValue="椭圆"/>
+        <bt:String id="BtnShapeEllipse.Tip" DefaultValue="在当前页中心插入椭圆。"/>
+        <bt:String id="BtnShapeTriangle.Label" DefaultValue="三角形"/>
+        <bt:String id="BtnShapeTriangle.Tip" DefaultValue="在当前页中心插入等腰三角形。"/>
+        <bt:String id="BtnShapeDiamond.Label" DefaultValue="菱形"/>
+        <bt:String id="BtnShapeDiamond.Tip" DefaultValue="在当前页中心插入菱形。"/>
+        <bt:String id="BtnShapePentagon.Label" DefaultValue="五边形"/>
+        <bt:String id="BtnShapePentagon.Tip" DefaultValue="在当前页中心插入正五边形。"/>
+        <bt:String id="BtnShapeHexagon.Label" DefaultValue="六边形"/>
+        <bt:String id="BtnShapeHexagon.Tip" DefaultValue="在当前页中心插入正六边形。"/>
+        <bt:String id="BtnShapeArrowRight.Label" DefaultValue="箭头"/>
+        <bt:String id="BtnShapeArrowRight.Tip" DefaultValue="在当前页中心插入右向块状箭头。"/>
+        <bt:String id="BtnShapeStar5.Label" DefaultValue="五角星"/>
+        <bt:String id="BtnShapeStar5.Tip" DefaultValue="在当前页中心插入五角星。"/>
+        <bt:String id="BtnShapeHeart.Label" DefaultValue="心形"/>
+        <bt:String id="BtnShapeHeart.Tip" DefaultValue="在当前页中心插入心形。"/>
+        <bt:String id="BtnShapeCloud.Label" DefaultValue="云形"/>
+        <bt:String id="BtnShapeCloud.Tip" DefaultValue="在当前页中心插入云形标注。"/>
+        <bt:String id="BtnShapeLine.Label" DefaultValue="直线"/>
+        <bt:String id="BtnShapeLine.Tip" DefaultValue="在当前页中部插入 240pt 水平直线（深蓝 2pt）。"/>
+        <bt:String id="BtnPicture.Label" DefaultValue="插入图片"/>
+        <bt:String id="BtnPicture.Tip" DefaultValue="选择本机图片并插入到当前页中心（仅文件选择，无其他弹窗）。"/>
+        <bt:String id="Group3.Label" DefaultValue="文本与对齐"/>
+        <bt:String id="Group4.Label" DefaultValue="形状样式"/>
+        <bt:String id="Group5.Label" DefaultValue="页面操作"/>
+        <bt:String id="Group6.Label" DefaultValue="咨询基因"/>
+        <bt:String id="Group7.Label" DefaultValue="文本样式"/>
+        <bt:String id="Group8.Label" DefaultValue="形状特效"/>
+        <bt:String id="Group9.Label" DefaultValue="插入与转换"/>
+        <bt:String id="BtnTaskpane.Label" DefaultValue="QSlide"/>
+        <bt:String id="BtnDistributeH.Label" DefaultValue="等间距↔"/>
+        <bt:String id="BtnActionTitle.Label" DefaultValue="Action Title"/>
+        <bt:String id="BtnUnify.Label" DefaultValue="统一色系"/>
+        <bt:String id="BtnSameWidth.Label" DefaultValue="同宽"/>
+        <bt:String id="BtnSameHeight.Label" DefaultValue="同高"/>
+        <bt:String id="BtnTouchLeft.Label" DefaultValue="贴合对齐↔"/>
+        <bt:String id="BtnTouchUp.Label" DefaultValue="贴合对齐↕"/>
+        <bt:String id="BtnRemoveText.Label" DefaultValue="删除文本"/>
+        <bt:String id="BtnEdgeUp.Label" DefaultValue="向上贴合 ↑"/>
+        <bt:String id="BtnEdgeDown.Label" DefaultValue="向下贴合 ↓"/>
+        <bt:String id="BtnEdgeLeft.Label" DefaultValue="向左贴合 ←"/>
+        <bt:String id="BtnEdgeRight.Label" DefaultValue="向右贴合 →"/>
+        <bt:String id="BtnSubjectTitle.Label" DefaultValue="主题标题"/>
+        <bt:String id="BtnFootnote.Label" DefaultValue="脚注"/>
+        <bt:String id="BtnMergeText.Label" DefaultValue="合并文本"/>
+        <bt:String id="BtnCollapseSpaces.Label" DefaultValue="删重复空格"/>
+        <bt:String id="BtnRoundUp.Label" DefaultValue="增大圆角"/>
+        <bt:String id="BtnRoundDown.Label" DefaultValue="减小圆角"/>
+        <bt:String id="BtnStraighten.Label" DefaultValue="拉直形状"/>
+        <bt:String id="BtnRemoveOutline.Label" DefaultValue="移除轮廓"/>
+        <bt:String id="BtnUnifyFont.Label" DefaultValue="统一字体"/>
+        <bt:String id="BtnInsertTextbox.Label" DefaultValue="插入文本框"/>
+        <bt:String id="BtnCopyToAll.Label" DefaultValue="复制到所有页"/>
+        <bt:String id="BtnRemoveNotes.Label" DefaultValue="删除备注"/>
+        <bt:String id="BtnRemoveAnimations.Label" DefaultValue="移除动画"/>
+        <bt:String id="BtnDuplicateSlide.Label" DefaultValue="复制幻灯片"/>
+        <bt:String id="BtnHarvey.Label" DefaultValue="哈维球 ½"/>
+        <bt:String id="BtnAgenda.Label" DefaultValue="议程页"/>
+        <bt:String id="BtnValueChain.Label" DefaultValue="价值链"/>
+        <bt:String id="BtnFontUp.Label" DefaultValue="增大字号"/>
+        <bt:String id="BtnFontDown.Label" DefaultValue="减小字号"/>
+        <bt:String id="BtnLineUp.Label" DefaultValue="增大行距"/>
+        <bt:String id="BtnLineDown.Label" DefaultValue="减小行距"/>
+        <bt:String id="BtnRemoveEffects.Label" DefaultValue="移除特效"/>
+        <bt:String id="BtnPickFormat.Label" DefaultValue="吸取格式"/>
+        <bt:String id="BtnApplyFormat.Label" DefaultValue="应用格式"/>
+        <bt:String id="BtnZeroMargins.Label" DefaultValue="内边距归零"/>
+        <bt:String id="BtnZeroMarginsAll.Label" DefaultValue="全文档去边距"/>
+        <bt:String id="BtnTable.Label" DefaultValue="插入表格"/>
+        <bt:String id="BtnGrayscale.Label" DefaultValue="灰度优化"/>
+        <bt:String id="Group10.Label" DefaultValue="对齐到页"/>
+        <bt:String id="Group11.Label" DefaultValue="叠放次序"/>
+        <bt:String id="BtnCenterH.Label" DefaultValue="居中水平"/>
+        <bt:String id="BtnCenterV.Label" DefaultValue="居中垂直"/>
+        <bt:String id="BtnCenterBoth.Label" DefaultValue="居中双"/>
+        <bt:String id="BtnRotationZero.Label" DefaultValue="旋转归零"/>
+        <bt:String id="BtnZFront.Label" DefaultValue="置顶"/>
+        <bt:String id="BtnZBack.Label" DefaultValue="置底"/>
+        <bt:String id="BtnZForward.Label" DefaultValue="上移一层"/>
+        <bt:String id="BtnZBackward.Label" DefaultValue="下移一层"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="选中多个形状后试试「同宽/同高/贴合对齐」。面板里有能力探测与更多操作。"/>
+        <bt:String id="GetStarted.LearnMoreUrl" DefaultValue="https://github.com/Daheng008/QSlide"/>
+        <bt:String id="BtnTaskpane.Tip" DefaultValue="打开 QSlide 面板：能力探测与更多操作。"/>
+        <bt:String id="BtnSameWidth.Tip" DefaultValue="把所选形状设为同宽（以第一个为准）。"/>
+        <bt:String id="BtnSameHeight.Tip" DefaultValue="把所选形状设为同高（以第一个为准）。"/>
+        <bt:String id="BtnTouchLeft.Tip" DefaultValue="水平贴合：形状左右边缘依次贴合，间隙归零。"/>
+        <bt:String id="BtnTouchUp.Tip" DefaultValue="垂直贴合：形状上下边缘依次贴合，间隙归零。"/>
+        <bt:String id="BtnRemoveText.Tip" DefaultValue="清空所选形状中的文本。"/>
+        <bt:String id="BtnDistributeH.Tip" DefaultValue="选中 ≥3 个形状，水平等间距分布（首尾固定）。"/>
+        <bt:String id="BtnActionTitle.Tip" DefaultValue="在当前页顶部插入行动式标题文本框（结论先行）。"/>
+        <bt:String id="BtnUnify.Tip" DefaultValue="把当前页所有纯色填充形状 snap 到最近咨询色（中性色/无填充跳过）。"/>
+        <bt:String id="BtnEdgeUp.Tip" DefaultValue="把所选形状顶缘对齐到选区最小 top。"/>
+        <bt:String id="BtnEdgeDown.Tip" DefaultValue="把所选形状底缘对齐到选区最大 bottom。"/>
+        <bt:String id="BtnEdgeLeft.Tip" DefaultValue="把所选形状左缘对齐到选区最小 left。"/>
+        <bt:String id="BtnEdgeRight.Tip" DefaultValue="把所选形状右缘对齐到选区最大 right。"/>
+        <bt:String id="BtnSubjectTitle.Tip" DefaultValue="在当前页顶部插入主题标题（本页讨论什么）。"/>
+        <bt:String id="BtnFootnote.Tip" DefaultValue="在当前页底部插入来源/注释脚注框。"/>
+        <bt:String id="BtnMergeText.Tip" DefaultValue="把所选形状文本合并为一个图元（格式保留）。"/>
+        <bt:String id="BtnCollapseSpaces.Tip" DefaultValue="清洗所选形状文本中的连续空格与前置标点空格。"/>
+        <bt:String id="BtnRoundUp.Tip" DefaultValue="增大所选圆角矩形的圆角半径。"/>
+        <bt:String id="BtnRoundDown.Tip" DefaultValue="减小所选圆角矩形的圆角半径。"/>
+        <bt:String id="BtnStraighten.Tip" DefaultValue="把所选圆角/曲线形状的可调调整点归零（拉直）。"/>
+        <bt:String id="BtnRemoveOutline.Tip" DefaultValue="隐藏所选形状的边框线。"/>
+        <bt:String id="BtnUnifyFont.Tip" DefaultValue="把选中形状文本套用首个含文本形状的字体。"/>
+        <bt:String id="BtnInsertTextbox.Tip" DefaultValue="在当前页插入一个待编辑文本框。"/>
+        <bt:String id="BtnCopyToAll.Tip" DefaultValue="把所选形状克隆到除当前页外的每一张幻灯片。"/>
+        <bt:String id="BtnRemoveNotes.Tip" DefaultValue="清空当前页演讲者备注。"/>
+        <bt:String id="BtnRemoveAnimations.Tip" DefaultValue="移除当前页动画（若宿主 API 开放）。"/>
+        <bt:String id="BtnDuplicateSlide.Tip" DefaultValue="复制当前页到其后。"/>
+        <bt:String id="BtnHarvey.Tip" DefaultValue="在所选圆形上绘制 ½ 哈维球（精确档见面板）。"/>
+        <bt:String id="BtnAgenda.Tip" DefaultValue="在当前页生成目录/议程页（按幻灯片数）。"/>
+        <bt:String id="BtnValueChain.Tip" DefaultValue="在当前页绘制波特价值链示意图。"/>
+        <bt:String id="BtnFontUp.Tip" DefaultValue="对所选形状文本字号 +2pt（下限 4pt）。"/>
+        <bt:String id="BtnFontDown.Tip" DefaultValue="对所选形状文本字号 -2pt（下限 4pt）。"/>
+        <bt:String id="BtnLineUp.Tip" DefaultValue="增大所选形状文本行距 +3pt。"/>
+        <bt:String id="BtnLineDown.Tip" DefaultValue="减小所选形状文本行距 -3pt。"/>
+        <bt:String id="BtnRemoveEffects.Tip" DefaultValue="移除所选形状阴影（反射/发光/柔化边缘如宿主 API 开放一并处理）。"/>
+        <bt:String id="BtnPickFormat.Tip" DefaultValue="吸取首个选中形状的填充/线/字体作为源格式。"/>
+        <bt:String id="BtnApplyFormat.Tip" DefaultValue="把吸取的源格式套用到当前选中的所有形状。"/>
+        <bt:String id="BtnZeroMargins.Tip" DefaultValue="把当前页文本框四边内边距归零（消灭默认 0.1″ 对齐误差）。"/>
+        <bt:String id="BtnZeroMarginsAll.Tip" DefaultValue="把全文档所有文本框内边距归零。"/>
+        <bt:String id="BtnTable.Tip" DefaultValue="在当前页插入 3×4 自绘表格（品牌蓝表头 + 斑马纹）。"/>
+        <bt:String id="BtnGrayscale.Tip" DefaultValue="把全文档纯色填充与文本色转灰（打印/投影友好）。"/>
+        <bt:String id="BtnCenterH.Tip" DefaultValue="把所选形状在页面内水平居中。"/>
+        <bt:String id="BtnCenterV.Tip" DefaultValue="把所选形状在页面内垂直居中。"/>
+        <bt:String id="BtnCenterBoth.Tip" DefaultValue="把所选形状在页面内水平+垂直居中。"/>
+        <bt:String id="BtnRotationZero.Tip" DefaultValue="把所选形状旋转角归零（摆正）。"/>
+        <bt:String id="BtnZFront.Tip" DefaultValue="把所选形状移到最前（叠放次序置顶）。"/>
+        <bt:String id="BtnZBack.Tip" DefaultValue="把所选形状移到最后（叠放次序置底）。"/>
+        <bt:String id="BtnZForward.Tip" DefaultValue="把所选形状上移一层。"/>
+        <bt:String id="BtnZBackward.Tip" DefaultValue="把所选形状下移一层。"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

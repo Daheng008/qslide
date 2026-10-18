@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>QSlide</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script type="module" src="./taskpane/main.ts"></script>
+  <style>
+    :root { --brand: #2b579a; --bg: #f4f6fa; --line: #d8dee9; --ok: #1a7f37; --warn: #b45309; }
+    * { box-sizing: border-box; }
+    body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; background: var(--bg); color: #222; font-size: 13px; }
+    header { background: var(--brand); color: #fff; padding: 10px 12px; font-weight: 600; letter-spacing: 1px; }
+    header small { display: block; font-weight: 400; opacity: .85; margin-top: 2px; }
+    section { margin: 10px 12px; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+    h2 { font-size: 13px; margin: 0 0 8px; color: var(--brand); }
+    .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    button { border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 9px 6px; font-size: 13px; cursor: pointer; }
+    button:hover { border-color: var(--brand); color: var(--brand); }
+    button:active { background: #eef2f9; }
+    .full { grid-column: 1 / -1; }
+    .palette { display: flex; gap: 8px; }
+    .palette button { flex: 1; height: 34px; padding: 0; border-radius: 6px; border: 1px solid var(--line); }
+    .palette button:hover { outline: 2px solid var(--brand); outline-offset: 1px; }
+    #log { max-height: 180px; overflow: auto; font-size: 12px; line-height: 1.6; }
+    #log .ok { color: var(--ok); }
+    #log .warn { color: var(--warn); }
+    #log .empty { color: #888; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    td, th { padding: 4px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+    .yes { color: var(--ok); font-weight: 600; }
+    .no { color: #b00; }
+    footer { margin: 10px 12px; color: #888; font-size: 11px; line-height: 1.6; }
+    input, select { border: 1px solid var(--line); border-radius: 6px; padding: 6px; font-size: 12px; }
+    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+    .hint { color: #888; font-size: 11px; line-height: 1.6; margin: 6px 0 0; }
+    #auditReport { font-size: 12px; line-height: 1.6; margin: 8px 0; max-height: 220px; overflow: auto; }
+    .audit-sum { background: #eef2f9; border-radius: 6px; padding: 6px 8px; color: #1f4e79; font-weight: 600; }
+    .audit-list { margin: 8px 0 0; padding-left: 18px; }
+    .audit-list li.lvl-warn { color: var(--warn); }
+    .audit-list li.lvl-info { color: #555; }
+    .swatch { width: 44px; height: 34px; padding: 0; border-radius: 6px; border: 1px solid var(--line); }
+    .swatch:hover { outline: 2px solid var(--brand); outline-offset: 1px; }
+  </style>
+</head>
+<body>
+  <header>QSlide <small>咨询级排版 · v1.0.0.5（插入图片兜底修复 / 排版体检 / 取色器·标注）</small></header>
+
+  <!-- 分工：反馈与提示（含 Ribbon 操作结果） -->
+  <section>
+    <h2>反馈与提示</h2>
+    <p class="hint">菜单栏操作的结果都会出现在这里（成功/失败/原因），不再弹窗。</p>
+    <div id="log"><div class="empty">暂无反馈。点击菜单栏或下方按钮后，结果会实时显示在这里。</div></div>
+  </section>
+
+  <!-- 分工：面板专属（菜单栏放不下 / 需要界面交互的） -->
+  <section>
+    <h2>目标模式（影响色板填充与删文本的作用范围）</h2>
+    <div class="btns">
+      <button data-op="toggleSimilar" id="modeBtn" class="full">目标：选区</button>
+    </div>
+    <p class="hint">同类模式：色板填充/删除文本作用于当前页所有同类形状。</p>
+  </section>
+
+  <section>
+    <h2>思维模型（Ribbon 放不下的生成类功能）</h2>
+    <div class="btns">
+      <button data-op="matrix2x2">2×2 矩阵</button>
+      <button data-op="pyramid">金字塔图</button>
+      <button data-op="valueChain" class="full">价值链示意图</button>
+    </div>
+    <p class="hint">生成占位示意图后，直接在页面里改文案与配色。后续补充：SCQA、三栏版式、时间轴等。</p>
+  </section>
+
+  <section>
+    <h2>排版体检（QPT 最值钱的能力）</h2>
+    <div class="btns">
+      <button data-op="auditSlide">扫描本页</button>
+      <button data-op="auditAll">扫描全文档</button>
+    </div>
+    <div id="auditReport"><div class="hint">点击上方「扫描」生成规范体检报告（字体数/颜色数/内边距/版心/标题）。</div></div>
+    <div class="btns" style="margin-top:8px">
+      <button data-op="repair" class="full">一键合规（内边距归零 + 统一色系）</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>标注与生成（菜单栏放不下的）</h2>
+    <div class="btns">
+      <button data-op="lines2Shapes">文本拆形状</button>
+      <button data-op="roadmapHeader">Roadmap 页眉</button>
+      <button data-op="sticky">插入便签</button>
+      <button data-op="dimLabel">单位标注</button>
+      <button data-op="toggleWrap">切换自动换行</button>
+      <button data-op="pickColor">取色器</button>
+    </div>
+    <p class="hint">取色器：选中形状吸取其填充/文字色，下方色块可点选填充其他形状。</p>
+    <div class="palette" id="myColors"><div class="hint" style="margin:0">点「取色器」后出现可点击的色块。</div></div>
+  </section>
+
+  <section>
+    <h2>色板应用（选中形状后点色块填充）</h2>
+    <div class="palette" id="palette"></div>
+  </section>
+
+  <section>
+    <h2>配色方案（保存 / 应用本页配色）</h2>
+    <div class="row">
+      <input id="schemeName" placeholder="方案名" style="flex:1;min-width:80px"/>
+      <button data-op="saveScheme">保存当前页配色</button>
+    </div>
+    <div class="row">
+      <select id="schemeSelect" style="flex:1;min-width:120px"></select>
+      <button data-op="applyScheme">应用到本页</button>
+      <button data-op="refreshSchemes">刷新</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>使用频率（本地埋点）</h2>
+    <table id="usageTable"></table>
+  </section>
+
+  <section>
+    <h2>宿主能力探测</h2>
+    <table id="capTable"></table>
+  </section>
+
+  <footer>
+    分工原则：菜单栏 = 一次点击直接操作图元；右侧面板 = 反馈日志 + 模式/方案等交互功能 + 生成类工具。
+    QSlide = QPT 的交互基因 × Office.js 现代 API。
+  </footer>
+</body>
+</html>

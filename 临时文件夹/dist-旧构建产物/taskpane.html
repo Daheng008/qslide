@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>QSlide</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    :root { --brand: #2b579a; --bg: #f4f6fa; --line: #d8dee9; --ok: #1a7f37; --warn: #b45309; }
+    * { box-sizing: border-box; }
+    body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; background: var(--bg); color: #222; font-size: 13px; }
+    header { background: var(--brand); color: #fff; padding: 10px 12px; font-weight: 600; letter-spacing: 1px; }
+    header small { display: block; font-weight: 400; opacity: .85; margin-top: 2px; }
+    section { margin: 10px 12px; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+    h2 { font-size: 13px; margin: 0 0 8px; color: var(--brand); }
+    .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    button { border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 9px 6px; font-size: 13px; cursor: pointer; }
+    button:hover { border-color: var(--brand); color: var(--brand); }
+    button:active { background: #eef2f9; }
+    .full { grid-column: 1 / -1; }
+    #log { margin-top: 8px; max-height: 110px; overflow: auto; font-size: 12px; line-height: 1.6; }
+    #log .ok { color: var(--ok); }
+    #log .warn { color: var(--warn); }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    td, th { padding: 4px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+    .yes { color: var(--ok); font-weight: 600; }
+    .no { color: #b00; }
+    footer { margin: 10px 12px; color: #888; font-size: 11px; line-height: 1.6; }
+  </style>
+  <script type="module" crossorigin src="/assets/taskpane-BAkAoMlJ.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/ops-BBRmnNfR.js">
+</head>
+<body>
+  <header>QSlide <small>咨询级排版 · v0.1.0（Phase 0 能力探测版）</small></header>
+
+  <section>
+    <h2>排版操作（选中形状后点击）</h2>
+    <div class="btns">
+      <button data-op="sameWidth">同宽</button>
+      <button data-op="sameHeight">同高</button>
+      <button data-op="touchLeft">贴合对齐 ↔</button>
+      <button data-op="touchUp">贴合对齐 ↕</button>
+      <button data-op="removeText" class="full">删除文本</button>
+    </div>
+    <div id="log"></div>
+  </section>
+
+  <section>
+    <h2>宿主能力探测（Phase 0）</h2>
+    <table id="capTable"></table>
+  </section>
+
+  <footer>
+    QSlide = QPT 的交互基因 × Office.js 现代 API。三平台一套代码（Win/Mac/Web）。
+    探测结果请截图反馈，用于锁定 MVP 能力矩阵。
+  </footer>
+</body>
+</html>
