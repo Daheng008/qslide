@@ -27,6 +27,9 @@
     border-radius: 12px; padding: 16px 18px; color: #eaf1ff; transition: all .18s;
   }
   a.item:hover { background: rgba(255,179,64,0.16); border-color: #ffb340; transform: translateY(-1px); }
+  a.item.download { background: rgba(255,179,64,0.14); border-color: rgba(255,179,64,0.5); }
+  a.item.download .ico { color: #ffb340; }
+  a.item.download:hover { background: rgba(255,179,64,0.26); border-color: #ffb340; }
   a.item .ico { font-size: 22px; }
   a.item b { font-size: 16px; }
   a.item span { font-size: 13px; color: #a9b9d9; display: block; margin-top: 2px; }
@@ -61,11 +64,23 @@
         <span class="ico">🖼️</span>
         <div><b>图片选择器</b><span>选择本机图片插入当前页（WebP/SVG 自动转 PNG）</span></div>
       </a>
+      <a class="item download" href="manifest.prod.xml" download>
+        <span class="ico">📦</span>
+        <div><b>下载安装清单 manifest.prod.xml</b><span>点此下载，按下方步骤装进 PowerPoint</span></div>
+      </a>
     </div>
 
     <div class="note">
-      💡 <b>安装方式</b>：Windows PowerPoint 打开「文件 → 选项 → 加载项 → 自定义加载项 → 从文件添加」，
-      选择随本站分发的 <code>manifest.prod.xml</code> 即可；企业批量部署请由管理员在 Microsoft 365 后台「集成应用」上传该清单。
+      <b style="color:#ffb340">📥 安装步骤</b>
+      <ol style="margin:10px 0 0 18px; line-height:1.9; color:#ffe3b3;">
+        <li>点击上方「下载安装清单」，把 <code>manifest.prod.xml</code> 存到本机。</li>
+        <li>打开 <b>Windows 版 PowerPoint</b> →「文件 → 选项 → 加载项」。</li>
+        <li>底部「管理」选「自定义加载项」→「转到…」→「添加」→ 选中该文件 → 确定。</li>
+        <li>重启 PowerPoint，功能区将出现 <b>QSlide</b> 选项卡，即可使用。</li>
+      </ol>
+      <p style="margin-top:12px; line-height:1.8; color:#ffe3b3;">
+      🏢 <b>企业批量</b>：由 Microsoft 365 管理员在后台「集成应用 → 上传自定义应用」选择该清单并指派给同事，全员自动安装。
+      </p>
     </div>
 
     <p class="foot">QSlide · GitHub Pages 托管 · 可信 HTTPS，Office 信任域</p>

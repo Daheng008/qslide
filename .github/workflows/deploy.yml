@@ -26,6 +26,9 @@ jobs:
         # 仓库名即 GitHub Pages 子路径：https://<user>.github.io/<repo>/
         # 若仓库名不是 qslide，把下面 /qslide/ 改成 /<你的仓库名>/
       - run: PAGES_BASE=/qslide/ npm run build
+      # 生成部署版 manifest（165 处 localhost→线上域名）并随站点一起发布，供用户下载安装
+      - run: python3 scripts/gen_manifest_prod.py https://Daheng008.github.io/qslide
+      - run: cp manifest.prod.xml dist/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
