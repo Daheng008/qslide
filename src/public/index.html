@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QSlide — PowerPoint 排版增强加载项</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(160deg, #0f1b3d 0%, #1a2f5e 55%, #245089 100%);
+    color: #eaf1ff; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center; padding: 40px 20px;
+  }
+  .card {
+    max-width: 640px; width: 100%;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 18px; padding: 48px 44px; backdrop-filter: blur(8px);
+  }
+  h1 { font-size: 34px; letter-spacing: 1px; }
+  h1 .q { color: #ffb340; }
+  .sub { margin-top: 10px; font-size: 15px; color: #b9c8e6; line-height: 1.7; }
+  .links { margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
+  a.item {
+    display: flex; align-items: center; gap: 14px; text-decoration: none;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px; padding: 16px 18px; color: #eaf1ff; transition: all .18s;
+  }
+  a.item:hover { background: rgba(255,179,64,0.16); border-color: #ffb340; transform: translateY(-1px); }
+  a.item .ico { font-size: 22px; }
+  a.item b { font-size: 16px; }
+  a.item span { font-size: 13px; color: #a9b9d9; display: block; margin-top: 2px; }
+  .note {
+    margin-top: 30px; padding: 14px 16px; border-radius: 10px;
+    background: rgba(255,179,64,0.12); border: 1px solid rgba(255,179,64,0.35);
+    font-size: 13px; line-height: 1.8; color: #ffe3b3;
+  }
+  code { background: rgba(0,0,0,0.3); padding: 1px 6px; border-radius: 5px; font-size: 12px; }
+  .foot { margin-top: 26px; font-size: 12px; color: #7f92b8; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1><span class="q">Q</span>Slide</h1>
+    <p class="sub">PowerPoint 排版增强加载项 —— 对齐分布、贴合叠放、统一样式、插入形状/图片/表格，一键直达。</p>
+
+    <div class="links">
+      <a class="item" href="taskpane.html">
+        <span class="ico">🧩</span>
+        <div><b>任务面板（Taskpane）</b><span>加载项主界面 —— 侧边栏排版工具与反馈</span></div>
+      </a>
+      <a class="item" href="commands.html">
+        <span class="ico">⚡</span>
+        <div><b>命令页（Commands）</b><span>Ribbon 按钮事件入口（安装清单引用，无需手动打开）</span></div>
+      </a>
+      <a class="item" href="shape-picker.html">
+        <span class="ico">⬟</span>
+        <div><b>形状选择器</b><span>插入 12 种常用形状与直线的对话框</span></div>
+      </a>
+      <a class="item" href="picker.html">
+        <span class="ico">🖼️</span>
+        <div><b>图片选择器</b><span>选择本机图片插入当前页（WebP/SVG 自动转 PNG）</span></div>
+      </a>
+    </div>
+
+    <div class="note">
+      💡 <b>安装方式</b>：Windows PowerPoint 打开「文件 → 选项 → 加载项 → 自定义加载项 → 从文件添加」，
+      选择随本站分发的 <code>manifest.prod.xml</code> 即可；企业批量部署请由管理员在 Microsoft 365 后台「集成应用」上传该清单。
+    </div>
+
+    <p class="foot">QSlide · GitHub Pages 托管 · 可信 HTTPS，Office 信任域</p>
+  </div>
+</body>
+</html>
