@@ -186,6 +186,11 @@ window.qslideShapeLine = withEvent(async () => report(await opInsertLine()));
 
 /** 插入图片：Ribbon 点击 → 打开本地图片选择小窗 → 选中后 base64 回传 → 插入当前页中心。
  *  选择文件本身需要系统文件对话框（PPT 原生「插入图片」同样如此），除此外不产生任何提示弹窗。 */
+/** 对话框页面 URL：必须带 Vite base 前缀（GitHub Pages 部署在 /qslide/ 子路径），
+ *  origin + "/picker.html" 会丢前缀导致 404。BASE_URL dev="/"、Pages 构建="/qslide/"（自带尾斜杠）。 */
+const dialogPage = (name: string) =>
+  window.location.origin + (import.meta.env.BASE_URL || "/") + name;
+
 window.qslideInsertPicture = withEvent(async () => {
   const opName = "插入图片";
   try {
@@ -196,7 +201,7 @@ window.qslideInsertPicture = withEvent(async () => {
     }
     const dlg: any = await new Promise((resolve, reject) => {
       ui.displayDialogAsync(
-        window.location.origin + "/picker.html",
+        dialogPage("picker.html"),
         { width: 32, height: 24, displayInIframe: true },
         (r: any) => {
           if (r.status === (Office as any).AsyncResultStatus.Succeeded) resolve(r.value);
@@ -235,7 +240,7 @@ window.qslideOpenShapePicker = withEvent(async () => {
     }
     const dlg: any = await new Promise((resolve, reject) => {
       ui.displayDialogAsync(
-        window.location.origin + "/shape-picker.html",
+        dialogPage("shape-picker.html"),
         { width: 40, height: 46, displayInIframe: true },
         (r: any) => {
           if (r.status === (Office as any).AsyncResultStatus.Succeeded) resolve(r.value);
